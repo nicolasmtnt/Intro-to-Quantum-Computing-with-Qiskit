@@ -194,8 +194,8 @@ $$|\psi\rangle = \frac{1}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle = \fr
 
 To transform a qubit from the state $|0\rangle$ to this superposition state, we use the Hadamard gate. The Hadamard gate is a fundamental quantum gate that creates a superposition of states. It is represented by the matrix:
 
-$$H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 
-\\ 1 & -1 \end{bmatrix}$$
+$$H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\
+1 & -1 \end{bmatrix}$$
 
 When the Hadamard gate is applied to the state $|0\rangle$, it transforms the state as follows:
 
