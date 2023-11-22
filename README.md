@@ -41,7 +41,7 @@ The coefficients $\alpha$ and $\beta$ in the qubit state $|\psi\rangle = \alpha|
 
 Since these are probabilities, they must adhere to the fundamental rule of probability that the sum of all probabilities must equal 1. This leads to the normalization condition for a qubit:
 
-$$ |\alpha|^2 + |\beta|^2 = 1. $$
+$$ |\alpha|^2 + |\beta|^2 = 1.$$
 
 
 
@@ -49,23 +49,17 @@ $$ |\alpha|^2 + |\beta|^2 = 1. $$
 
 In vector notation, the qubit can be represented as:
 
-$$
-|\psi\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix},
-$$
+$$|\psi\rangle = \begin{bmatrix} \alpha \\ \beta \end{bmatrix}$$
 
 where this is a column vector. In this representation, a classical bit in state 0 is represented as:
 
-$$
-|0\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix},
-$$
+$$|0\rangle = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$$
 
 
 
 and a classical bit in state 1 is represented as:
 
-$$
-|1\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix}.
-$$
+$$ |1\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix}$$
 
 
 ```
@@ -98,7 +92,7 @@ plot_bloch_vector(state_0, title="Bloch Sphere Representation of |1>")
 
 We can also represent $\alpha$ and $\beta$ in the polar form. Since each complex number typically has two degrees of freedom (phase and amplitude), $|\psi\rangle$ appears to have four degrees of freedom However, the normalization condition
 
-$$ |\alpha|^2 + |\beta|^2 = 1 $$ 
+$$|\alpha|^2 + |\beta|^2 = 1$$ 
 
 removes one degree of freedom. By adopting a suitable coordinate transformation, such as the Hopf coordinates, one of these degrees of freedom can be eliminated. The transformation is expressed as:
 
@@ -168,10 +162,8 @@ In quantum computing, the dimensionality of a multi-qubit system is crucial for 
 
  For example, a two-qubit system has a dimensionality of $2^2 = 4$, with basis states $|00\rangle$, $|01\rangle$, $|10\rangle$, and $|11\rangle$. 
  
- - In vector notation, the basis states $ |00\rangle $, $ |01\rangle $, $ |10\rangle $, and $ |11\rangle $ are represented as follows:
-  $$
-  |00\rangle = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \quad |01\rangle = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \end{bmatrix}, \quad |10\rangle = \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}, \quad |11\rangle = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}
-  $$
+ - In vector notation, the basis states $|00\rangle$, $|01\rangle$, $|10\rangle$, and $|11\rangle$ are represented as follows:
+  $$|00\rangle = \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \quad |01\rangle = \begin{bmatrix} 0 \\ 1 \\ 0 \\ 0 \end{bmatrix}, \quad |10\rangle = \begin{bmatrix} 0 \\ 0 \\ 1 \\ 0 \end{bmatrix}, \quad |11\rangle = \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}$$
 
  Similarly, a three-qubit system has a dimensionality of $2^3 = 8$, with basis states ranging from $|000\rangle$ to $|111\rangle$.
 
@@ -181,34 +173,26 @@ In quantum computing, the dimensionality of a multi-qubit system is crucial for 
 
 One of the most basic and important superpositions in quantum computing involves both $\alpha$ and $\beta$ being real numbers and equal, such as in the state:
 
-$$
-|\psi\rangle = \frac{1}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}.
-$$
+$$|\psi\rangle = \frac{1}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix}$$
 
 To transform a qubit from the state $|0\rangle$ to this superposition state, we use the Hadamard gate. The Hadamard gate is a fundamental quantum gate that creates a superposition of states. It is represented by the matrix:
 
-$$
-H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
-$$
+$$H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$$
 
 When the Hadamard gate is applied to the state $|0\rangle$, it transforms the state as follows:
 
-$$
-H|0\rangle = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle).
-$$
+$$H|0\rangle = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$$
 
 This results in an equal superposition of the $|0\rangle$ and $|1\rangle$ states, a fundamental aspect of quantum computing that enables quantum algorithms to explore multiple possibilities simultaneously.
 
 
-1. **Applying the Hadamard Gate Again to $ \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) $**
+1. **Applying the Hadamard Gate Again to $\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$**
 
-When the Hadamard gate is applied to the state $ \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) $, the transformation is as follows:
+When the Hadamard gate is applied to the state $\frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$, the transformation is as follows:
 
-$$
-H \left( \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) \right) = H \left( \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \right) = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = |0\rangle.
-$$
+$$H \left( \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) \right) = H \left( \frac{1}{\sqrt{2}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} \right) = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}\frac{1}{\sqrt{2}}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = |0\rangle.$$
 
-Thus, applying the Hadamard gate again to the superposition state brings the qubit back to the $ |0\rangle $ state.
+Thus, applying the Hadamard gate again to the superposition state brings the qubit back to the $|0\rangle $ state.
 
 You may have noticed that applying the Hadamard gate $H$ twice to a quantum state returns it to its original state. This behavior is not coincidental but a fundamental property. Hadamard gates are what we call a unitary operator in quantum computing. Unitary operators, such as the Hadamard gate, play a crucial role in the coherent and reversible evolution of quantum states. (Notes: Applying an unitary operator two times don't necessary give back the original state. Most will not but Hadamard gate is specific. We will see why below)
 
@@ -245,7 +229,7 @@ Unitary operators play a fundamental role in quantum mechanics and quantum compu
 >
 > A **Unitary Operator** $U$ in quantum computing is a linear operator that satisfies the condition:
 >
-> $$ U^\dagger U = UU^\dagger = I $$
+> $$U^\dagger U = UU^\dagger = I$$
 >
 > where:
 > - $U^\dagger$ is the conjugate transpose (also known as the Hermitian adjoint) of $U$,
@@ -261,14 +245,10 @@ Unitary operators play a fundamental role in quantum mechanics and quantum compu
 The conjugate transpose $U^\dagger$ of a matrix $U$ is obtained by first taking the transpose of $U$ (swapping rows with columns) and then taking the complex conjugate of each element.
 
 - Original Matrix:
-  $$
-  U = \begin{bmatrix} a & b \\ c & d \end{bmatrix}
-  $$
+  $$U = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$$
 
 - Conjugate Transpose (Hermitian Adjoint) $U^\dagger$:
-  $$
-  U^\dagger = \begin{bmatrix} a^* & c^* \\ b^* & d^* \end{bmatrix}
-  $$
+  $$U^\dagger = \begin{bmatrix} a^* & c^* \\ b^* & d^* \end{bmatrix}$$
   where $a^*, b^*, c^*, d^*$ are the complex conjugates of $a, b, c, d$ respectively.
 
 
@@ -276,15 +256,11 @@ The conjugate transpose $U^\dagger$ of a matrix $U$ is obtained by first taking 
 
 The Hadamard gate is an example of a real unitary operator. It is represented by the matrix:
 
-$$
-H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}
-$$
+$$H = \frac{1}{\sqrt{2}}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}$$
 
-Since the Hadamard gate is a real symmetric matrix (i.e., it contains no complex numbers and $ H^T = H$), its conjugate transpose is itself. Applying the Hadamard gate twice, $HH$, is equivalent to the identity operation:
+Since the Hadamard gate is a real symmetric matrix (i.e., it contains no complex numbers and $H^T = H$), its conjugate transpose is itself. Applying the Hadamard gate twice, $HH$, is equivalent to the identity operation:
 
-$$
-HH = H H^\dagger = \frac{1}{2}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = I
-$$
+$$HH = H H^\dagger = \frac{1}{2}\begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = I$$
 
 This demonstrates the unitary property of the Hadamard gate, which is a key feature in quantum computing, enabling reversible transformations of qubit states.
 
@@ -293,17 +269,13 @@ This demonstrates the unitary property of the Hadamard gate, which is a key feat
 
 1. **Preservation of Norms**: Since unitary operators preserve inner products, they also preserve norms. For any state $|\psi\rangle$:
 
-   $$
-   \langle \psi | \psi \rangle = \langle U\psi | U\psi \rangle.
-   $$
+   $$\langle \psi | \psi \rangle = \langle U\psi | U\psi \rangle.$$
 
    This property is essential in quantum computing, as it ensures that the probabilities (which are based on norms of state vectors) remain valid (sum up to 1) after the application of quantum gates.
 
 2. **Reversibility**: Unitary operations are reversible. Given a unitary operator $U$ and a state $|\psi\rangle$, applying $U$ followed by $U^\dagger$ returns the state to its original form:
 
-   $$
-   U^\dagger U|\psi\rangle = |\psi\rangle.
-   $$
+   $$U^\dagger U|\psi\rangle = |\psi\rangle$$
 
    This property is fundamental in quantum algorithms, where the ability to reverse operations is crucial.
 
@@ -329,9 +301,7 @@ Others important Unitary Operators includes:
 3. **Controlled NOT Gate (CNOT)**:
    - A two-qubit gate that flips the second qubit (target) if the first qubit (control) is $|1\rangle$.
    - Matrix representation: 
-   $$
-   CNOT = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}.
-   $$
+   $$CNOT = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix}$$
 
 
 In quantum computing, the state of multiple qubits is often described using the tensor product notation. The tensor product, denoted by $\otimes$, combines the states of individual qubits into a joint state. For two qubits in states $|A\rangle$ and $|B\rangle$, the combined state of the system is written as $|A\rangle \otimes |B\rangle$, which is often simplified to $|A, B\rangle$.
@@ -352,7 +322,7 @@ In quantum computing, the state of multiple qubits is often described using the 
 
  ### The Bell State
 
-$$ |\Psi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) $$
+$$|\Psi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$$
 
  The Bell State is a prime example of quantum entanglement in a two-qubit system. It's one of the simplest and most famous entangled states in quantum computing. The most common Bell State is written as:
 
@@ -376,7 +346,7 @@ $$ |\Psi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) $$
 
 To determine if a two-qubit state is entangled or not, we check if it can be written as a product of two separate single-qubit states. For a general two-qubit state $|\psi\rangle$, if it can be written as:
 
-$$ |\psi\rangle = |a\rangle \otimes |b\rangle $$
+$$|\psi\rangle = |a\rangle \otimes |b\rangle$$
 
 where $|a\rangle$ and $|b\rangle$ are states of individual qubits, then $|\psi\rangle$ is not entangled. Conversely, if such a decomposition is not possible, the state is entangled.
 
@@ -390,17 +360,17 @@ $$ |\Psi^+\rangle = |a\rangle \otimes |b\rangle $$
 
 Expanding $|a\rangle$ and $|b\rangle$ in the computational basis:
 
-$$ |a\rangle = x|0\rangle + y|1\rangle $$
-$$ |b\rangle = z|0\rangle + w|1\rangle $$
+$$|a\rangle = x|0\rangle + y|1\rangle$$
+$$|b\rangle = z|0\rangle + w|1\rangle$$
 
 where $x, y, z, w$ are complex numbers. The tensor product $|a\rangle \otimes |b\rangle$ gives:
 
-$$ |a\rangle \otimes |b\rangle = (x|0\rangle + y|1\rangle) \otimes (z|0\rangle + w|1\rangle) $$
-$$ = xz|00\rangle + xw|01\rangle + yz|10\rangle + yw|11\rangle $$
+$$|a\rangle \otimes |b\rangle = (x|0\rangle + y|1\rangle) \otimes (z|0\rangle + w|1\rangle)$$
+$$= xz|00\rangle + xw|01\rangle + yz|10\rangle + yw|11\rangle$$
 
 For this to be equal to $|\Psi^+\rangle$, we need:
 
-$$ \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) = xz|00\rangle + xw|01\rangle + yz|10\rangle + yw|11\rangle $$
+$$\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) = xz|00\rangle + xw|01\rangle + yz|10\rangle + yw|11\rangle$$
 
 However, this equation implies that $xw = yz = 0$ and $xz = yw = \frac{1}{\sqrt{2}}$. This set of equations has no solution. Thus, it is not possible to express the Bell State as a product of two single-qubit states.
 
@@ -437,7 +407,7 @@ plot_bloch_multivector(state)
 ```
 
    - **Statevector**: `[0.70710678+0.j, 0.70710678+0.j, 0.        +0.j, 0.        +0.j]`
-   $$ \frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|01\rangle $$
+   $$\frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|01\rangle $$
 
    - This statevector represents a superposition of the states $|00\rangle$ and $|01\rangle$ with equal probability amplitudes (approximately $\frac{1}{\sqrt{2}}$ for each).
    - Mathematically, the state can be described as $|0\rangle \otimes (\frac{1}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle)$, where the first qubit is in state $|0\rangle$ and the second qubit is in a superposition state.
@@ -487,18 +457,18 @@ The CNOT gate is a two-qubit operation that performs a conditional flip of the t
 where $\oplus$ denotes the XOR (exclusive OR) operation.
 
 
-The exclusive OR (XOR) operation, represented by the symbol $ \oplus $, is a binary operation that takes two bits as input and produces a single bit as output. The XOR operation outputs 1 only when the inputs are different, and 0 when the inputs are the same. Here's a truth table that illustrates this:
+The exclusive OR (XOR) operation, represented by the symbol $\oplus$, is a binary operation that takes two bits as input and produces a single bit as output. The XOR operation outputs 1 only when the inputs are different, and 0 when the inputs are the same. Here's a truth table that illustrates this:
 
-| Input A | Input B | A $ \oplus $ B (Output) |
+| Input A | Input B | A $\oplus$ B (Output) |
 |---------|---------|----------------|
 |    0    |    0    |        0       |
 |    0    |    1    |        1       |
 |    1    |    0    |        1       |
 |    1    |    1    |        0       |
 
-- When both inputs are 0 (0 $ \oplus $ 0), the output is 0.
-- When one input is 0 and the other is 1 (0 $ \oplus $ 1 or 1 $ \oplus $ 0), the output is 1.
-- When both inputs are 1 (1 $ \oplus $ 1), the output is 0.
+- When both inputs are 0 (0 $\oplus$ 0), the output is 0.
+- When one input is 0 and the other is 1 (0 $\oplus$ 1 or 1 $\oplus$ 0), the output is 1.
+- When both inputs are 1 (1 $\oplus$ 1), the output is 0.
 
 This operation is widely used in digital electronics and computing, particularly in logic circuits, error detection and correction, and in some algorithms.
 
@@ -514,16 +484,12 @@ In summary, the action of the CNOT gate depends on the state of the control qubi
 5. **Swap Gate**:
    - Swaps the states of two qubits.
    - Represented by the matrix: 
-   $$
-   SWAP = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
-   $$
+   $$SWAP = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}$$
 
 6. **Toffoli Gate (CCNOT)**:
    - A three-qubit gate that is a universal gate for classical computation.
    - Flips the third qubit if the first two qubits are in the $|1\rangle$ state.
    - Matrix representation:
-   $$
-   CCNOT = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \end{bmatrix}.
-   $$
+   $$CCNOT = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \end{bmatrix}$$
 
 These unitary operators are the building blocks of quantum circuits and algorithms, enabling the manipulation and control of qubits for quantum computation and quantum information processing. Each of these gates, by virtue of being unitary, preserves the total probability amplitude in a quantum system, ensuring coherent and reversible quantum evolution.
