@@ -279,7 +279,7 @@ c & d \end{bmatrix}$$
 $$U^\dagger = \begin{bmatrix} a^* & c^* \\
 b^* & d^* \end{bmatrix}$$
   
-  where $a^*$, $b^*$, $c^*$, $d^*$ are the complex conjugates of $a, b, c, d$ respectively.
+  where $a^* $, $b^* $, $c^* $, $d^*$ are the complex conjugates of $a, b, c, d$ respectively.
 
 
 #### Hadamard Gate as a Real Unitary Operator
@@ -460,7 +460,8 @@ plot_bloch_multivector(state)
 ```
 
    - **Statevector**: `[0.70710678+0.j, 0.70710678+0.j, 0.        +0.j, 0.        +0.j]`
-   $$\frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|01\rangle $$
+
+$$\frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|01\rangle $$
 
    - This statevector represents a superposition of the states $|00\rangle$ and $|01\rangle$ with equal probability amplitudes (approximately $\frac{1}{\sqrt{2}}$ for each).
    - Mathematically, the state can be described as $|0\rangle \otimes (\frac{1}{\sqrt{2}}|0\rangle + \frac{1}{\sqrt{2}}|1\rangle)$, where the first qubit is in state $|0\rangle$ and the second qubit is in a superposition state.
@@ -488,7 +489,8 @@ qc.draw("mpl")
 ```
 
    - **Statevector**: `[0.70710678+0.j, 0.        +0.j, 0.        +0.j, 0.70710678+0.j]`
-   $$ \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) $$
+
+$$ \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle) $$
    - This statevector represents the Bell State, specifically the $|\Psi^+\rangle$ state, which is an entangled state. It's a superposition of the states $|00\rangle$ and $|11\rangle$ with equal probability amplitudes.
    - The mathematical representation is $\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$.
    - This state is entangled: the state of one qubit is intrinsically linked to the state of the other. Measuring one qubit immediately affects the state of the other. For instance, if one qubit is measured and found to be in state $|0\rangle$, the other is also in state $|0\rangle$, and similarly for state $|1\rangle$.
@@ -547,6 +549,7 @@ $$SWAP = \begin{bmatrix} 1 & 0 & 0 & 0 \\
    - A three-qubit gate that is a universal gate for classical computation.
    - Flips the third qubit if the first two qubits are in the $|1\rangle$ state.
    - Matrix representation:
+
 $$CCNOT = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
