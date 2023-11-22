@@ -2,7 +2,6 @@
 On this page, you'll find a beginner-friendly guide to quantum computing and information, completed with code examples using Qiskit. This approach integrates the typically separate subjects of quantum mechanics, quantum computing, and quantum information programming.
 
 
-
 # Table of Contents
 1. [Qubit](#qubit)
    1. [Dirac Notation](#dirac-notation)
@@ -166,19 +165,21 @@ In quantum computing, the dimensionality of a multi-qubit system is crucial for 
  For example, a two-qubit system has a dimensionality of $2^2 = 4$, with basis states $|00\rangle$, $|01\rangle$, $|10\rangle$, and $|11\rangle$. 
  
  - In vector notation, the basis states $|00\rangle$, $|01\rangle$, $|10\rangle$, and $|11\rangle$ are represented as follows:
-  $$|00\rangle = \begin{bmatrix} 1 \\
+   
+ $$|00\rangle = \begin{bmatrix} 1 \\
  0 \\
-   0 \\
-    0 \end{bmatrix}, \quad |01\rangle = \begin{bmatrix} 0 \\
-    1 \\
-    0 \\
-    0 \end{bmatrix}, \quad |10\rangle = \begin{bmatrix} 0 \\
-    0 \\
-    1 \\
-    0 \end{bmatrix}, \quad |11\rangle = \begin{bmatrix} 0 \\
-    0 \\
-    0 \\
-    1 \end{bmatrix}$$
+ 0 \\
+ 0 \end{bmatrix}, \quad |01\rangle = \begin{bmatrix} 0 \\
+ 1 \\
+ 0 \\
+ 0 \end{bmatrix}, \quad |10\rangle = \begin{bmatrix} 0 \\
+ 0 \\
+ 1 \\
+ 0 \end{bmatrix}, \quad |11\rangle = \begin{bmatrix} 0 \\
+ 0 \\
+ 0 \\
+ 1 \end{bmatrix}$$
+
 
  Similarly, a three-qubit system has a dimensionality of $2^3 = 8$, with basis states ranging from $|000\rangle$ to $|111\rangle$.
 
@@ -216,7 +217,7 @@ $$H \left( \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) \right) = H \left( \frac{1}
 1 \end{bmatrix} = \begin{bmatrix} 1 \\
 0 \end{bmatrix} = |0\rangle.$$
 
-Thus, applying the Hadamard gate again to the superposition state brings the qubit back to the $|0\rangle $ state.
+Thus, applying the Hadamard gate again to the superposition state brings the qubit back to the $|0\rangle$ state.
 
 You may have noticed that applying the Hadamard gate $H$ twice to a quantum state returns it to its original state. This behavior is not coincidental but a fundamental property. Hadamard gates are what we call a unitary operator in quantum computing. Unitary operators, such as the Hadamard gate, play a crucial role in the coherent and reversible evolution of quantum states. (Notes: Applying an unitary operator two times don't necessary give back the original state. Most will not but Hadamard gate is specific. We will see why below)
 
@@ -269,13 +270,16 @@ Unitary operators play a fundamental role in quantum mechanics and quantum compu
 The conjugate transpose $U^\dagger$ of a matrix $U$ is obtained by first taking the transpose of $U$ (swapping rows with columns) and then taking the complex conjugate of each element.
 
 - Original Matrix:
-  $$U = \begin{bmatrix} a & b \\
-   c & d \end{bmatrix}$$
+  
+$$U = \begin{bmatrix} a & b\\
+c & d \end{bmatrix}$$
 
 - Conjugate Transpose (Hermitian Adjoint) $U^\dagger$:
-  $$U^\dagger = \begin{bmatrix} a^* & c^* \\
-   b^* & d^* \end{bmatrix}$$
-  where $a^*, b^*, c^*, d^*$ are the complex conjugates of $a, b, c, d$ respectively.
+  
+$$U^\dagger = \begin{bmatrix} a^* & c^* \\
+b^* & d^* \end{bmatrix}$$
+  
+  where $a^*$, $b^*$, $c^*$, $d^*$ are the complex conjugates of $a, b, c, d$ respectively.
 
 
 #### Hadamard Gate as a Real Unitary Operator
@@ -316,27 +320,38 @@ Others important Unitary Operators includes:
 
 1. **Pauli Gates (X, Y, Z)**:
    - **Pauli-X Gate**: Also known as the "quantum NOT gate" or "bit-flip", it maps $|0\rangle$ to $|1\rangle$ and vice versa.
-     - Matrix: $X = \begin{bmatrix} 0 & 1 \\
-     -  1 & 0 \end{bmatrix}$.
+     - Matrix:
+
+$$X = \begin{bmatrix} 0 & 1 \\
+       1 & 0 \end{bmatrix}$$
    - **Pauli-Y Gate**: Performs a bit and phase flip.
-     - Matrix: $Y = \begin{bmatrix} 0 & -i \\
-     -  i & 0 \end{bmatrix}$.
+     - Matrix:
+
+$$Y = \begin{bmatrix} 0 & -i \\
+       i & 0 \end{bmatrix}$$
    - **Pauli-Z Gate**: Also called "phase-flip", it leaves $|0\rangle$ unchanged but maps $|1\rangle$ to $-|1\rangle$.
-     - Matrix: $Z = \begin{bmatrix} 1 & 0 \\
-     -  0 & -1 \end{bmatrix}$.
+     - Matrix:
+   
+$$Z = \begin{bmatrix} 1 & 0 \\
+        0 & -1 \end{bmatrix}$$
 
 2. **Phase Shift Gate (S and T Gates)**:
    - **S Gate** (or $\pi/2$ phase shift): 
-     - Matrix: $S = \begin{bmatrix} 1 & 0 \\
-     -  0 & i \end{bmatrix}$.
+     - Matrix:
+   
+$$S = \begin{bmatrix} 1 & 0 \\
+0 & i \end{bmatrix}$$
    - **T Gate** (or $\pi/4$ phase shift):
-     - Matrix: $T = \begin{bmatrix} 1 & 0 \\
-     -  0 & e^{i\pi/4} \end{bmatrix}$.
+     - Matrix:
+   
+$$T = \begin{bmatrix} 1 & 0 \\
+0 & e^{i\pi/4} \end{bmatrix}$$
 
 3. **Controlled NOT Gate (CNOT)**:
    - A two-qubit gate that flips the second qubit (target) if the first qubit (control) is $|1\rangle$.
-   - Matrix representation: 
-   $$CNOT = \begin{bmatrix} 1 & 0 & 0 & 0 \\
+   - Matrix representation:
+
+$$CNOT = \begin{bmatrix} 1 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 \\
  0 & 0 & 0 & 1 \\
  0 & 0 & 1 & 0 \end{bmatrix}$$
@@ -522,7 +537,8 @@ In summary, the action of the CNOT gate depends on the state of the control qubi
 5. **Swap Gate**:
    - Swaps the states of two qubits.
    - Represented by the matrix: 
-   $$SWAP = \begin{bmatrix} 1 & 0 & 0 & 0 \\
+
+$$SWAP = \begin{bmatrix} 1 & 0 & 0 & 0 \\
  0 & 0 & 1 & 0 \\
  0 & 1 & 0 & 0 \\
  0 & 0 & 0 & 1 \end{bmatrix}$$
@@ -531,7 +547,7 @@ In summary, the action of the CNOT gate depends on the state of the control qubi
    - A three-qubit gate that is a universal gate for classical computation.
    - Flips the third qubit if the first two qubits are in the $|1\rangle$ state.
    - Matrix representation:
-   $$CCNOT = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+$$CCNOT = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
  0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
