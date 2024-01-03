@@ -40,8 +40,9 @@ The coefficients $\alpha$ and $\beta$ in the qubit state $|\psi\rangle = \alpha|
 
 Since these are probabilities, they must adhere to the fundamental rule of probability that the sum of all probabilities must equal 1. This leads to the normalization condition for a qubit:
 
-$$ |\alpha|^2 + |\beta|^2 = 1.$$
+$$ |\alpha|^2 + |\beta|^2 = 1$$
 
+Notes that $\alpha + \beta = 1$ is not correct because $\alpha$ and $\beta$ are complex so we need to do $|\alpha|^2=\text{Re}(\alpha)^2+\text{Im}(\alpha)^2$ and same with $\beta$. 
 
 
 ### Vector Representation
@@ -64,7 +65,7 @@ $$ |1\rangle = \begin{bmatrix} 0 \\
 1 \end{bmatrix}$$
 
 
-```
+```python
 from qiskit.visualization import plot_bloch_vector
 %matplotlib inline
 
@@ -76,7 +77,7 @@ plot_bloch_vector(state_0, title="Bloch Sphere Representation of |0>")
 ```
 ![state 0](images/state0.png)
 
-```
+```python
 from qiskit.visualization import plot_bloch_vector
 %matplotlib inline
 
@@ -118,7 +119,7 @@ These two parameters, $\theta$ and $\varphi$, fully describe the state of a qubi
 
 ![Bloch Sphere](images/bloch.png)
 
-```
+```python
 # Parameters
 theta = np.pi/2  # Example value for theta [0, pi]
 phi = np.pi / 4    # Example value for phi [0, 2*pi]
@@ -226,7 +227,7 @@ You may have noticed that applying the Hadamard gate $H$ twice to a quantum stat
 
 Manipulating a qubit can be fun, but multiple one simulatunously is even better.
 
-```
+```python
 qc = QuantumCircuit(2) # Create a quantum circuit with two qubits
 qc.h(0) # Apply a Hadamard gate to the first qubit
 qc.draw("mpl") # Draw the circuit
@@ -234,7 +235,7 @@ qc.draw("mpl") # Draw the circuit
 
 This approach allows us to observe the impact of the Hadamard gate $H$ on the first qubit and compare it with the second one
 
-```
+```python
 # Use the statevector simulator to get the final state
 simulator = Aer.get_backend('statevector_simulator') 
 result = execute(qc, simulator).result()
@@ -319,7 +320,8 @@ This demonstrates the unitary property of the Hadamard gate, which is a key feat
 Others important Unitary Operators includes:
 
 1. **Pauli Gates (X, Y, Z)**:
-   - **Pauli-X Gate**: Also known as the "quantum NOT gate" or "bit-flip", it maps $|0\rangle$ to $|1\rangle$ and vice versa.
+
+- **Pauli-X Gate**: Also known as the "quantum NOT gate" or "bit-flip", it maps $|0\rangle$ to $|1\rangle$ and vice versa.
      - Matrix:
 
 $$X = \begin{bmatrix} 0 & 1 \\
@@ -336,7 +338,7 @@ $$Z = \begin{bmatrix} 1 & 0 \\
         0 & -1 \end{bmatrix}$$
 
 2. **Phase Shift Gate (S and T Gates)**:
-   - **S Gate** (or $\pi/2$ phase shift): 
+- **S Gate** (or $\pi/2$ phase shift): 
      - Matrix:
    
 $$S = \begin{bmatrix} 1 & 0 \\
@@ -438,7 +440,7 @@ Since the Bell State cannot be decomposed into a product of two separate single-
 ![Statevector Without CNOT Gate](images/circuit2.png)
 
 
-```
+```python
 # Importing necessary libraries from Qiskit
 from qiskit import QuantumCircuit, Aer, execute
 from qiskit.quantum_info import Statevector
@@ -472,7 +474,7 @@ $$\frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|01\rangle $$
 ![Statevector Without CNOT Gate](images/circuitBellState.png)
 
 
-```
+```python
 qc = QuantumCircuit(2) # Create a quantum circuit with two qubits
 qc.h(0) # Apply a Hadamard gate to the first
 qc.cx(0,1) # Apply a CNOT gate with control qubit 0 and target qubit 1
@@ -514,18 +516,13 @@ where $\oplus$ denotes the XOR (exclusive OR) operation.
 
 The exclusive OR (XOR) operation, represented by the symbol $\oplus$, is a binary operation that takes two bits as input and produces a single bit as output. The XOR operation outputs 1 only when the inputs are different, and 0 when the inputs are the same. Here's a truth table that illustrates this:
 
-| Input A | Input B | A $\oplus$ B (Output) |
+| Input A (Control) | Input B (Target) | A $\oplus$ B (Output) |
 |---------|---------|----------------|
 |    0    |    0    |        0       |
 |    0    |    1    |        1       |
 |    1    |    0    |        1       |
 |    1    |    1    |        0       |
 
-- When both inputs are 0 (0 $\oplus$ 0), the output is 0.
-- When one input is 0 and the other is 1 (0 $\oplus$ 1 or 1 $\oplus$ 0), the output is 1.
-- When both inputs are 1 (1 $\oplus$ 1), the output is 0.
-
-This operation is widely used in digital electronics and computing, particularly in logic circuits, error detection and correction, and in some algorithms.
 
 
 ### Explanation of CNOT Operation
@@ -560,3 +557,89 @@ $$CCNOT = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
  0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \end{bmatrix}$$
 
 These unitary operators are the building blocks of quantum circuits and algorithms, enabling the manipulation and control of qubits for quantum computation and quantum information processing. Each of these gates, by virtue of being unitary, preserves the total probability amplitude in a quantum system, ensuring coherent and reversible quantum evolution.
+
+
+
+# Quantum Teleportation
+
+Quantum teleportation is a fascinating concept in quantum computing and quantum information theory. Contrary to what its name might suggest, quantum teleportation doesn't involve moving objects instantaneously across space or transmitting information faster than light. Instead, it refers to the process of transferring the state of a quantum system (a qubit) from one location to another, using a classical communication channel and quantum entanglement. Let's explore how quantum teleportation works, particularly focusing on the procedure where Alice wants to send a qubit state $\ket{\psi}$ to Bob using classical information and quantum entanglement.
+
+![Quantum Teleportation](images/teleportation.png)
+
+### Setting Up Entanglement
+
+Alice and Bob first need to create an entangled pair of qubits. This is typically done using the Bell State, a fundamental entangled state in quantum computing:
+
+$$\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$$
+
+This entangled state is set up between two qubits. Initially, the combined state of the system can be represented as:
+
+$$\ket{\psi_0} = \ket{\psi} \otimes \ket{0} \otimes \ket{0}$$
+$$\ket{\psi_1} = \ket{\psi} \left(\frac{1}{\sqrt{2}} \ket{00} + \frac{1}{\sqrt{2}} \ket{11} \right)$$
+
+Here, the bottom two qubits are entangled. The first qubit $\ket{\psi} = \alpha \ket{0}+ \beta \ket{1}$ is the one Alice will try to send to Bob but for now it is unchanged.
+
+$$\ket{\psi_1} = (\alpha \ket{0}+ \beta \ket{1})\otimes \left(\frac{1}{\sqrt{2}} \ket{00} + \frac{1}{\sqrt{2}} \ket{11} \right)$$
+
+$$\ket{\psi_1} = \frac{\alpha}{\sqrt{2}} \ket{000} + \frac{\alpha}{\sqrt{2}} \ket{011} + \frac{\beta}{\sqrt{2}} \ket{100} + \frac{\beta}{\sqrt{2}} \ket{111}
+$$
+
+
+### Teleportation Protocol
+
+Once the two last qubit are entangled, Alice take $\ket{\psi}$ and her part of the entangled pair go away from Bob. She then perform a serie operations/
+
+1. **CNOT Gate Operation**: Alice applies a CNOT gate using $\ket{\psi}$ as the control qubit and her part of the entangled pair as the target.
+
+$$
+\ket{\psi_2} = \frac{1}{\sqrt{2}}\left(\alpha \ket{000} + \alpha \ket{011} + \beta \ket{110} + \beta\ket{101} \right)\\
+$$
+
+2. **Applying Hadamard Gate to $\ket{\psi}$**: Next, Alice applies a Hadamard gate to her original qubit $\ket{\psi}$. The Hadamard gate creates a superposition state, further entangling it with the Bell pair. This can be represented as:
+
+$$
+\begin{align*}
+\ket{\psi_3} &= \frac{1}{\sqrt{2}}\left(\alpha \ket{+}  \ket{00} + \alpha \ket{+} \ket{11} + \beta \ket{-} \ket{10} + \beta \ket{-} \ket{01} \right) \\
+&= \alpha \ket{+} \left( \frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11} \right) + \beta \ket{-} \left( \frac{1}{\sqrt{2}}\ket{10}+\frac{1}{\sqrt{2}}\ket{01} \right)  \\
+&= \alpha \left( \frac{1}{\sqrt{2}}\ket{0} + \frac{1}{\sqrt{2}}\ket{1} \right) \left( \frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11} \right) \\
+&\quad + \beta \left( \frac{1}{\sqrt{2}}\ket{0} - \frac{1}{\sqrt{2}}\ket{1} \right) \left( \frac{1}{\sqrt{2}}\ket{10}+\frac{1}{\sqrt{2}}\ket{01} \right)
+
+\end{align*}
+$$
+
+We need to rewrite $\ket{\psi_3}$ such that it give information about Bob part of the entangled pair when measuring Alice qubits. Therefore we factorize the equation on the two first qubits.
+
+$$
+\begin{align*}
+\ket{\psi_3} &= + \ket{00} \left( \frac{\alpha}{2}\ket{0}+ \frac{\beta}{2}\ket{1} \right) \\
+&\quad + \ket{01} \left( \frac{\alpha}{2}\ket{1}+ \frac{\beta}{2}\ket{0} \right) \\
+&\quad + \ket{10} \left( \frac{\alpha}{2}\ket{0}- \frac{\beta}{2}\ket{1} \right) \\
+&\quad + \ket{11} \left( \frac{\alpha}{2}\ket{1}- \frac{\beta}{2}\ket{0} \right)
+\end{align*}
+$$
+
+
+
+
+
+3. **Measurement**: Alice then measures both her qubits. The outcome of these measurements is classical information.
+
+Remarkably, the information Alice obtains from this measurement is sufficient for Bob to recreate the state $\ket{\psi}$ on his end. This is the core idea behind quantum teleportation.
+
+Based on Alice measures, ke know the state of Bob part of the entangled pair.
+
+- If Alice measures (0,0), Bob already has $\ket{\psi}$.
+- If Alice measures (0,1), Bob needs to apply a bit flip, so he uses the $X$ gate.
+- If Alice measures (1,0), Bob needs to apply a phase flip, so he uses the $Z$ gate.
+- If Alice measures (1,1), Bob needs to apply both bit and phase flips, so he uses the $X$ gate followed by the $Z$ gate.
+
+Now Bob, as the qubit  $\ket{\psi}$ but Alice lost it so this transfer is not a cloning because it imply destruction of the original. Actually it is impossible to clone a qubit. Reflecting on this, when Alice conducted her measurement, we only gained knowledge about the necessary operations for Bob to reconstruct the original qubit $\ket{\psi}$ through phase and/or bit flips but we didn't gain any specific information about the qubit itself ($\alpha$ and $\beta$). It might seem counterintuitive that Bob's entangled pair, which never directly interacted with $\ket{\psi}$, can be manipulated to regain $\ket{\psi}$ . This phenomenon appears as if the information about $\alpha$ and $\beta$ was "teleported" to Bob's qubit, thanks to the properties of quantum entanglement and superposition.
+
+
+
+
+
+
+
+
+
