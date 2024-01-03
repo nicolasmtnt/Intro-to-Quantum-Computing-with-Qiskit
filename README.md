@@ -568,9 +568,9 @@ Quantum teleportation is a fascinating concept in quantum computing and quantum 
 
 ### Setting Up Entanglement
 
-Alice and Bob first need to create an entangled pair of qubits. This is typically done using the Bell State, a fundamental entangled state in quantum computing:
+Alice and Bob first need to create an entangled pair of qubits. This is typically done using the Bell State:
 
-$$\frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$$
+$$\frac{1}{\sqrt{2}}(\ket{00} + \ket{11})$$
 
 This entangled state is set up between two qubits. Initially, the combined state of the system can be represented as:
 
@@ -634,11 +634,125 @@ Based on Alice measures, ke know the state of Bob part of the entangled pair.
 
 Now Bob, as the qubit  $\ket{\psi}$ but Alice lost it so this transfer is not a cloning because it imply destruction of the original. Actually it is impossible to clone a qubit. Reflecting on this, when Alice conducted her measurement, we only gained knowledge about the necessary operations for Bob to reconstruct the original qubit $\ket{\psi}$ through phase and/or bit flips but we didn't gain any specific information about the qubit itself ($\alpha$ and $\beta$). It might seem counterintuitive that Bob's entangled pair, which never directly interacted with $\ket{\psi}$, can be manipulated to regain $\ket{\psi}$ . This phenomenon appears as if the information about $\alpha$ and $\beta$ was "teleported" to Bob's qubit, thanks to the properties of quantum entanglement and superposition.
 
+### Chapter: Quantum Parallelism
+
+**Quantum Parallelism**
+
+Quantum parallelism refers to the ability of a quantum computer to evaluate a function on multiple inputs simultaneously. It allows quantum algorithms to perform certain computations much more efficiently than classical algorithms.
+
+Consider the function $f$:
+
+$$
+f: \{0,1\} \rightarrow \{0,1\}
+$$
+
+The specific mapping of $f$ is unknown. It could either be:
+
+- **Constant**: Here, $f(0) = f(1)$. The function's output is the same for all inputs.
+
+  | x | f(x) |
+  |---|------|
+  | 0 |   1  |
+  | 1 |   1  |
+
+  (And similarly for the case where $f(0) = f(1) = 0$)
+
+- **Balanced**: In this case, $f(0) \neq f(1)$. The function's output is different for each input.
+
+  | x | f(x) |
+  |---|------|
+  | 0 |   1  |
+  | 1 |   0  |
+
+  (And similarly for the case where $f(0) = 0$ and $f(1) = 1$)
+
+With a classical computer, to determine whether $f$ is constant or balanced, we would need to compute $f(0)$ and then $f(1)$. However, a quantum computer can process these evaluations more efficiently.
+
+**Standard Quantum Function**
+
+![Quantum Standard Function](images/standardFunction.png)
+
+A quantum function can be represented as:
+
+$$
+\ket{x}\ket{y} \rightarrow \ket{x}\ket{y \oplus f(x)}
+$$
+
+Here, $\oplus$ denotes the XOR operation, which is a fundamental operation in quantum computing. This XOR operation ensures that the quantum function is invertible, a necessary condition for many quantum algorithms.
+
+Here, $\oplus$ represents the addition modulo 2 operation, equivalent to the XOR operation in classical computing. It's a fundamental operation in quantum computing. This operation ensures that the quantum function is invertible, a necessary condition for many quantum algorithms. For example, $0 \oplus 1 = 1$, $1 \oplus 1 = 0$ because $1 + 1 \equiv 0 \ (\text{mod}\ 2)$.
 
 
+The significance of $\ket{y \oplus f(x)}$ becomes clear when we consider $y$ in the superposition state $\ket{-}$.
+
+$$
+U_f \ket{x}\ket{-} = U_f \ket{x} \left( \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1} \right)
+= \frac{1}{\sqrt{2}} \ket{x} \ket{f(x)} - \frac{1}{\sqrt{2}} \ket{x} \ket{\overline{f(x)}}
+$$
+where $\overline{f(x)}$ represents the logical negation of $f(x)$.
+
+Subsequently, the expression for $U_f \ket{x}\ket{-}$ unfolds as:
+
+$$
+\begin{cases}
+- \ket{x} \left( \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1} \right) = \ket{x}\ket{-} & \text{if } f(x) = 0 \\
+- \ket{x} \left( -\frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1} \right) = -\ket{x}\ket{-} & \text{if } f(x) = 1
+\end{cases}
+$$
+
+Therefore, this leads us to reformulate:
+
+$$
+U_f \ket{x}\ket{-} = (-1)^{f(x)}\ket{x}\ket{-}
+$$
+
+This reformulation is an example of what is known as a phase oracle. It operates by encoding the information of a function output $f(x)$ into the phase of a quantum state, rather than into the state's amplitude. This encoding is done in a way that the function's output is represented as a phase shift in the quantum state.
+
+![Quantum Oracle](images/oracle.png)
+
+Note that the phase oracle once again demonstrates the property of phase kickback that we previously discussed.
 
 
+# Deutsch's Algorithm
+
+![Deutsch's Algorithm](images/deutsch.png)
 
 
+Deutsch's Algorithm is a fundamental quantum algorithm that demonstrates the advantage of quantum computing over classical computing, even for a simple problem. It determines whether a given binary function $f: \{0, 1\} \to \{0, 1\}$ is constant or balanced.
+
+Here's a step-by-step breakdown of Deutsch's Algorithm:
+
+1. **Initial State:**  
+   We start with two qubits. The first qubit is initialized to $\ket{0}$ and the second to $\ket{1}$. Thus, the initial state is: 
+   
+   $$\ket{\psi_1} = \ket{0}\ket{1}$$
+
+2. **Preparation:**  
+   We apply an $H$ Hadamard gates to both qubits, putting them into superposition:
+   $$\ket{\psi_2} = \ket{+}\ket{-} = \frac{1}{\sqrt{2}} \ket{0}\ket{-} + \frac{1}{\sqrt{2}} \ket{1}\ket{-}$$
+
+3. **Applying $U_f$:**  
+   Next, we apply the unitary operation $U_f$ corresponding to the function $f$. This operation entangles the two qubits based on the function's output:
+   $$\ket{\psi_3} = U_f \ket{\psi_2} = \frac{1}{\sqrt{2}} (-1)^{f(0)}\ket{0}\ket{-} + \frac{1}{\sqrt{2}} (-1)^{f(1)}\ket{1}\ket{-}$$
+
+   Depending on whether $f$ is constant or balanced, $\ket{\psi_3}$ takes one of two forms:
+   $$\ket{\psi_3} = 
+   \begin{cases}
+   (\frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1} ) \ket{-} & \text{if } f(0) = f(1) \\
+   (\frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1} ) \ket{-} & \text{if } f(0) \neq f(1)
+   \end{cases}$$
+
+4. **Final Step and Measurement:**
+   Finally, a Hadamard gate is applied again to the first qubit. The final state before measurement, $\ket{\psi_4}$, becomes:
+   $$\ket{\psi_4} =
+   \begin{cases}
+   \ket{0}\ket{-} & \text{if } f(0) = f(1) \\
+   \ket{1}\ket{-} & \text{if } f(0) \neq f(1)
+   \end{cases}$$
+
+5. **Measurement:**
+   The first qubit is measured. If the outcome is $0$, the function $f$ is constant; if the outcome is $1$, the function $f$ is balanced. This measurement provides the answer in just one function evaluation, showcasing the quantum advantage.
+
+Deutsch's Algorithm illustrates an essential quantum computing concept: the ability to process information in superposition, leading to potential exponential speedups for certain problems compared to classical algorithms.
 
 
