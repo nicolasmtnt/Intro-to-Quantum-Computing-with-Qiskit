@@ -587,7 +587,7 @@ $$
 
 ### Teleportation Protocol
 
-Once the two last qubit are entangled, Alice take $\ket{\psi}$ and her part of the entangled pair go away from Bob. She then perform a serie operations/
+Once the two last qubit are entangled, Alice take $\ket{\psi}$ and her part of the entangled pair go away from Bob. She then perform a serie of operations.
 
 1. **CNOT Gate Operation**: Alice applies a CNOT gate using $\ket{\psi}$ as the control qubit and her part of the entangled pair as the target.
 
@@ -603,7 +603,6 @@ $$
 &= \alpha \ket{+} \left( \frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11} \right) + \beta \ket{-} \left( \frac{1}{\sqrt{2}}\ket{10}+\frac{1}{\sqrt{2}}\ket{01} \right)  \\
 &= \alpha \left( \frac{1}{\sqrt{2}}\ket{0} + \frac{1}{\sqrt{2}}\ket{1} \right) \left( \frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11} \right) \\
 &\quad + \beta \left( \frac{1}{\sqrt{2}}\ket{0} - \frac{1}{\sqrt{2}}\ket{1} \right) \left( \frac{1}{\sqrt{2}}\ket{10}+\frac{1}{\sqrt{2}}\ket{01} \right)
-
 \end{align*}
 $$
 
