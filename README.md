@@ -725,32 +725,46 @@ Here's a step-by-step breakdown of Deutsch's Algorithm:
 1. **Initial State:**  
    We start with two qubits. The first qubit is initialized to $\ket{0}$ and the second to $\ket{1}$. Thus, the initial state is: 
    
-   $$\ket{\psi_1} = \ket{0}\ket{1}$$
+   $$
+   \ket{\psi_1} = \ket{0}\ket{1}
+   $$
 
-2. **Preparation:**  
+3. **Preparation:**  
    We apply an $H$ Hadamard gates to both qubits, putting them into superposition:
-   $$\ket{\psi_2} = \ket{+}\ket{-} = \frac{1}{\sqrt{2}} \ket{0}\ket{-} + \frac{1}{\sqrt{2}} \ket{1}\ket{-}$$
+   
+   $$
+   \ket{\psi_2} = \ket{+}\ket{-} = \frac{1}{\sqrt{2}} \ket{0}\ket{-} + \frac{1}{\sqrt{2}} \ket{1}\ket{-}
+   $$
 
-3. **Applying $U_f$:**  
+4. **Applying $U_f$:**  
    Next, we apply the unitary operation $U_f$ corresponding to the function $f$. This operation entangles the two qubits based on the function's output:
-   $$\ket{\psi_3} = U_f \ket{\psi_2} = \frac{1}{\sqrt{2}} (-1)^{f(0)}\ket{0}\ket{-} + \frac{1}{\sqrt{2}} (-1)^{f(1)}\ket{1}\ket{-}$$
+   
+   $$
+   \ket{\psi_3} = U_f \ket{\psi_2} = \frac{1}{\sqrt{2}} (-1)^{f(0)}\ket{0}\ket{-} + \frac{1}{\sqrt{2}} (-1)^{f(1)}\ket{1}\ket{-}
+   $$
 
    Depending on whether $f$ is constant or balanced, $\ket{\psi_3}$ takes one of two forms:
-   $$\ket{\psi_3} = 
+   
+   $$
+   \ket{\psi_3} = 
    \begin{cases}
    (\frac{1}{\sqrt{2}} \ket{0} + \frac{1}{\sqrt{2}} \ket{1} ) \ket{-} & \text{if } f(0) = f(1) \\
    (\frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1} ) \ket{-} & \text{if } f(0) \neq f(1)
-   \end{cases}$$
+   \end{cases}
+   $$
 
-4. **Final Step and Measurement:**
+6. **Final Step and Measurement:**
    Finally, a Hadamard gate is applied again to the first qubit. The final state before measurement, $\ket{\psi_4}$, becomes:
-   $$\ket{\psi_4} =
+   
+   $$
+   \ket{\psi_4} =
    \begin{cases}
    \ket{0}\ket{-} & \text{if } f(0) = f(1) \\
    \ket{1}\ket{-} & \text{if } f(0) \neq f(1)
-   \end{cases}$$
+   \end{cases}
+   $$
 
-5. **Measurement:**
+7. **Measurement:**
    The first qubit is measured. If the outcome is $0$, the function $f$ is constant; if the outcome is $1$, the function $f$ is balanced. This measurement provides the answer in just one function evaluation, showcasing the quantum advantage.
 
 Deutsch's Algorithm illustrates an essential quantum computing concept: the ability to process information in superposition, leading to potential exponential speedups for certain problems compared to classical algorithms.
