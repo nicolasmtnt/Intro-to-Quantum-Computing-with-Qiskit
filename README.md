@@ -634,9 +634,8 @@ Based on Alice measures, ke know the state of Bob part of the entangled pair.
 
 Now Bob, as the qubit  $\ket{\psi}$ but Alice lost it so this transfer is not a cloning because it imply destruction of the original. Actually it is impossible to clone a qubit. Reflecting on this, when Alice conducted her measurement, we only gained knowledge about the necessary operations for Bob to reconstruct the original qubit $\ket{\psi}$ through phase and/or bit flips but we didn't gain any specific information about the qubit itself ($\alpha$ and $\beta$). It might seem counterintuitive that Bob's entangled pair, which never directly interacted with $\ket{\psi}$, can be manipulated to regain $\ket{\psi}$ . This phenomenon appears as if the information about $\alpha$ and $\beta$ was "teleported" to Bob's qubit, thanks to the properties of quantum entanglement and superposition.
 
-### Chapter: Quantum Parallelism
+# Quantum Parallelism
 
-**Quantum Parallelism**
 
 Quantum parallelism refers to the ability of a quantum computer to evaluate a function on multiple inputs simultaneously. It allows quantum algorithms to perform certain computations much more efficiently than classical algorithms.
 
@@ -686,9 +685,11 @@ Here, $\oplus$ represents the addition modulo 2 operation, equivalent to the XOR
 The significance of $\ket{y \oplus f(x)}$ becomes clear when we consider $y$ in the superposition state $\ket{-}$.
 
 $$
-U_f \ket{x}\ket{-} = U_f \ket{x} \left( \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1} \right) = \frac{1}{\sqrt{2}} \ket{x} \ket{f(x)} - \frac{1}{\sqrt{2}} \ket{x}\ket{\overline{f(x)}}
+\begin{align*}
+U_f \ket{x}\ket{-} &= U_f \ket{x} \left( \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\sqrt{2}} \ket{1} \right) \\
+&= \frac{1}{\sqrt{2}} \ket{x} \ket{f(x)} - \frac{1}{\sqrt{2}} \ket{x}\ket{\overline{f(x)}}
+\end{align*}
 $$
-
 where $\overline{f(x)}$ represents the logical negation of $f(x)$.
 
 Subsequently, the expression for $U_f \ket{x}\ket{-}$ unfolds as:
@@ -768,3 +769,253 @@ $$
 Deutsch's Algorithm illustrates an essential quantum computing concept: the ability to process information in superposition, leading to potential exponential speedups for certain problems compared to classical algorithms.
 
 
+
+# Deutsch-Jozsa Algorithm
+
+Now instead of considering $f : \{0,1\} \to \{0,1\}$ with two possibilities, let's consider a more generalized function:
+
+$$
+f : \{0,1\}^n \to \{0,1\}
+$$
+
+There are therefore $2^n$ possible inputs. Again, we want to check if `f` is balanced (i.e., outputs `0` for exactly half of the inputs and `1` for the other half) or constant (i.e., outputs the same value for all inputs).
+
+For instance, with $n=3$, we can represent the function values for a balanced and a constant function as follows:
+
+### Balanced Function `f` Example:
+
+| x   | f(x) |
+|-----|------|
+| 000 |  0   |
+| 001 |  1   |
+| 010 |  1   |
+| 011 |  0   |
+| 100 |  0   |
+| 101 |  1   |
+| 110 |  1   |
+| 111 |  0   |
+
+### Constant Function `f` Example:
+
+| x   | f(x) |
+|-----|------|
+| 000 |  0   |
+| 001 |  0   |
+| 010 |  0   |
+| 011 |  0   |
+| 100 |  0   |
+| 101 |  0   |
+| 110 |  0   |
+| 111 |  0   |
+
+(Alternatively, for a constant function, all values in the `f(x)` column could be `1`.)
+
+With a classical computer, we would need to compute `f` for multiple values. Once we find two different values (say `0` and `1`), we can conclude that `f` is not constant; hence, it is balanced (since it can only be one of both).
+
+However, in the worst-case scenario, we would need to check half of the possibilities, which is:
+
+$$
+\frac{2^n}{2} = 2^{n-1}
+$$
+
+If all these values are the same, then we would check just one more value. There are two possibilities at this point:
+
+- If the additional value is the same as the others, then `f` is constant.
+- If it is different, then `f` is balanced, and all remaining possibilities would yield the alternative value.
+
+So, the worst possible number of iterations for a classical approach is:
+
+$$
+2^{n-1} + 1
+$$
+
+
+### The Deutsch-Jozsa Algorithm
+
+
+![Deutsch-Jozsa Algorithm](images/deutschJozsa.png)
+
+
+The Deutsch-Jozsa algorithm is a generalization of the Deutsch's Algorithm to $n$-qubit that can distinguish between a balanced and a constant function much more efficiently than classical computers. It operates as follows:
+
+### 1. **Initialization**
+
+First, like in Deutsch's algorithm, we initialize the first `n` qubits in the $\ket{0}$ state and the last qubit in the $\ket{1}$ state:
+
+$$
+\begin{align*}
+\ket{\psi_1} &= \overbrace{\ket{0} \ket{0}\ldots\ket{0}}^{\text{n times}} \ket{1} \\
+&= \ket{0}^{\otimes n}\ket{1}
+\end{align*}
+$$
+
+### 2. **Hadamard Transformation**
+
+Next, we apply the Hadamard transform to each qubit. The Hadamard transform $H$ on a single qubit is defined as:
+
+$$
+H\ket{0} = \ket{+}, \quad H\ket{1} = \ket{-}
+$$
+
+Applying $H$ to all $n+1$ qubits, we get:
+
+$$
+\begin{align*}
+\ket{\psi_2} &= \overbrace{H\ket{0}H\ket{0}\ldots H\ket{0}}^{\text{n times}} H \ket{1} \\
+&= H^{\otimes n}\ket{0}^{\otimes n} \otimes H\ket{1}
+\end{align*}
+$$
+
+Using the fact that $H\ket{0} = \ket{+}$ and $H\ket{1} = \ket{-}$, this becomes:
+
+$$
+\begin{align*}
+\ket{\psi_2} &=  \overbrace{\ket{+}\ket{+}\ldots\ket{+}}^{\text{n times}} \ket{-} \\
+&= \ket{+}^{\otimes n}\ket{-}
+\end{align*}
+$$
+
+
+
+>$$
+>\ket{+}^{\otimes n} = \frac{1}{\sqrt{2^n}} \sum_{x \in \{0,1\}^n} \ket{x}
+
+
+> **Proof**
+>
+>1. **Base Case n=1**:
+>
+>   For $n = 1$, $\ket{+}^{\otimes 1} = \ket{+} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1})$, which matches the formula.
+>
+>
+>2. **Assume the statement is true for $n = k$**, 
+>
+>   $$
+>   \ket{+}^{\otimes k} = \frac{1}{\sqrt{2^k}} \sum_{x \in \{0,1\}^k} \ket{x}
+>   $$
+>
+>3. **Now consider $n = k + 1$**
+>
+>   $$
+>   \ket{+}^{\otimes (k+1)} = \ket{+}^{\otimes k} \otimes \ket{+}
+>   $$
+>
+>   Using the inductive hypothesis, this becomes:
+>
+>   $$
+>   \frac{1}{\sqrt{2^k}} \sum_{x \in \{0,1\}^k} \ket{x} \otimes \frac{1}{\sqrt{2}}(\ket{0} + \ket{1})
+>   $$
+>
+>   Expanding this, we get:
+>
+>   $$
+>   \frac{1}{\sqrt{2^{k+1}}} \sum_{x \in \{0,1\}^k} (\ket{x}\ket{0} + \ket{x}\ket{1})
+>   $$
+>
+>   Which is equivalent to:
+>
+>   $$
+>   \frac{1}{\sqrt{2^{k+1}}} \sum_{x \in \{0,1\}^{k+1}} \ket{x}
+>   $$
+>
+>
+>
+ >  This completes the induction, proving the formula for all $n$.
+
+
+We can therefore rewrite $\ket{\psi_2}$:
+
+$$
+\ket{\psi_2} = \frac{1}{\sqrt{2^n}} \sum_{x \in \{0,1\}^n} \ket{x} \ket{-}
+$$
+
+### 3. **Apply Oracle $U_f$**
+
+Then, we apply the oracle $U_f$. This operation maps $\ket{x}\ket{y}$ to $\ket{x}\ket{y \oplus f(x)}$, where $\oplus$ denotes addition modulo 2. For our specific case, with the second register initially in state $\ket{-}$, the transformation is:
+
+$$
+\begin{align*}
+\ket{\psi_3} &= U_f \left( \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} \ket{x} \ket{-} \right) \\
+&= \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} U_f\ket{x}\ket{-} \\
+&= \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} (-1)^{f(x)}\ket{x}\ket{-}
+\end{align*}
+$$
+
+After this step, we apply the Hadamard transform to the first $n$ qubits:
+
+$$
+\ket{\psi_4} = H^{\otimes n}\ket{\psi_3}
+$$
+
+> **Formula**
+>
+> $$
+>H^{\otimes n} \ket{x} = \frac{1}{\sqrt{2^n}} \sum_{z \in \{0,1\}^n} (-1)^{x \cdot z}\ket{z} \quad  \text{where }x \in \{0,1\}^n
+>$$
+>
+>Here, $x \cdot z$ denotes the bitwise dot product of $x$ and $z$. This completes the proof.
+
+>Proof:
+>
+>Let $\ket{x} = \ket{x_1}\ket{x_2}...\ket{x_n}$ describes an
+>$n$-qubit quantum state where each qubit is in one of the basic computational states $(\ket{0},\ket{1})$, and the overall state is a product state of these individual qubits.
+>
+>$$
+>\begin{align*}
+>\ket{x} &= \overbrace{\ket{x_1}\ket{x_2}...\ket{x_n}}^{\text{n times}} \\
+>&= \bigotimes_{i=1}^n \ket{x_i} \quad  \text{where }x_i \in \{0,1\}
+>\end{align*}
+>$$
+>
+>$$
+>\begin{align*}
+>H^{\otimes n} \ket{x} &= H^{\otimes n} \bigotimes_{i=1}^n \ket{x_i} \\
+>&= \bigotimes_{i=1}^n H\ket{x_i} \\
+>&= \bigotimes_{i=1}^n \left( \frac{1}{\sqrt{2}} \ket{0} + \frac{(-1)^{x_i}}{\sqrt{2}} \ket{1} \right)
+>\end{align*}
+>$$
+>
+>Expanding this product, we get a superposition of all $n$-bit strings, where each string $z$ contributes a term with phase $(-1)^{x \cdot z}$:
+>
+>$$
+>H^{\otimes n} \ket{x} = \frac{1}{\sqrt{2^n}} \sum_{z \in \{0,1\}^n} (-1)^{x \cdot z}\ket{z} \quad  \text{where }x \in \{0,1\}^n
+>$$
+
+Exemple :
+
+$$
+\begin{align*}
+H^{\otimes 3} \ket{101} &= \left( H\ket{1} \otimes H\ket{0} \otimes H\ket{1} \right) \\
+&= \left( \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}) \right) \otimes \left( \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}) \right) \otimes \left( \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}) \right) \\
+&= \frac{1}{\sqrt{2^3}} \times (\ket{0} - \ket{1}) \otimes (\ket{0} + \ket{1}) \otimes (\ket{0} - \ket{1})\\
+&= \frac{1}{\sqrt{8}} \left( \ket{000} - \ket{001} - \ket{010} + \ket{011} - \ket{100} + \ket{101} + \ket{110} - \ket{111} \right)
+\end{align*}
+$$
+
+
+### 4. Applying the Hadamard Transform
+
+After applying the Hadamard transform to the first $n$ qubits in the state $\ket{\psi_3}$, we get:
+
+$$
+\ket{\psi_4} = H^{\otimes n} \left( \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} (-1)^{f(x)}\ket{x}\ket{-} \right)
+$$
+$$
+= \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} (-1)^{f(x)} H^{\otimes n}\ket{x}\ket{-}
+$$
+
+Using the formula for $H^{\otimes n} \ket{x}$, we can expand this to:
+
+$$
+\ket{\psi_4} = \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} (-1)^{f(x)} \left( \frac{1}{\sqrt{2^n}} \sum_{z \in \{0,1\}^n} (-1)^{x \cdot z}\ket{z} \right) \ket{-}
+$$
+$$
+= \frac{1}{2^n} \sum_{x \in \{0,1\}^n} \sum_{z \in \{0,1\}^n} (-1)^{f(x)}(-1)^{x \cdot z} \ket{z}\ket{-}
+$$
+$$
+= \frac{1}{2^n} \sum_{x \in \{0,1\}^n} \sum_{z \in \{0,1\}^n} (-1)^{f(x)+x \cdot z} \ket{z}\ket{-}
+$$
+
+### 5. Measurement and Conclusion
+
+Finally, we measure the first $n$ qubits. If $f(x)$ is constant, all terms in the sum for $\ket{\psi_4}$ add constructively for $z = 0^n$ and destructively for all other $z$, leading to the measurement of $0^n$. If $f(x)$ is balanced, there is complete destructive interference for $z = 0^n$, making it impossible to measure $0^n$. Thus, by observing whether or not we get $0^n$, we can determine if $f$ is constant or balanced, completing the Deutsch-Jozsa algorithm.
