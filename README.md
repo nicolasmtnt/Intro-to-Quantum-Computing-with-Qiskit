@@ -690,6 +690,7 @@ U_f \ket{x}\ket{-} &= U_f \ket{x} \left( \frac{1}{\sqrt{2}} \ket{0} - \frac{1}{\
 &= \frac{1}{\sqrt{2}} \ket{x} \ket{f(x)} - \frac{1}{\sqrt{2}} \ket{x}\ket{\overline{f(x)}}
 \end{align*}
 $$
+
 where $\overline{f(x)}$ represents the logical negation of $f(x)$.
 
 Subsequently, the expression for $U_f \ket{x}\ket{-}$ unfolds as:
@@ -703,9 +704,11 @@ $$
 
 Therefore, this leads us to reformulate:
 
-$$
-U_f \ket{x}\ket{-} = (-1)^{f(x)}\ket{x}\ket{-}
-$$
+> **The Oracle Property**
+>
+>$$
+>U_f \ket{x}\ket{-} = (-1)^{f(x)}\ket{x}\ket{-}
+>$$
 
 This reformulation is an example of what is known as a phase oracle. It operates by encoding the information of a function output $f(x)$ into the phase of a quantum state, rather than into the state's amplitude. This encoding is done in a way that the function's output is represented as a phase shift in the quantum state.
 
@@ -877,10 +880,10 @@ $$
 
 
 
+
 >$$
 >\ket{+}^{\otimes n} = \frac{1}{\sqrt{2^n}} \sum_{x \in \{0,1\}^n} \ket{x}
-
-
+>$$
 > **Proof**
 >
 >1. **Base Case n=1**:
@@ -929,6 +932,8 @@ $$
 \ket{\psi_2} = \frac{1}{\sqrt{2^n}} \sum_{x \in \{0,1\}^n} \ket{x} \ket{-}
 $$
 
+As you can see, we have created a state that is a superposition of all the possible states. That's with this method that Deutsch-Jozsa Algorithm is able to find wether a function is balanced and constant with only $1$ iteration instead of $2^{n-1}+1$ 
+
 ### 3. **Apply Oracle $U_f$**
 
 Then, we apply the oracle $U_f$. This operation maps $\ket{x}\ket{y}$ to $\ket{x}\ket{y \oplus f(x)}$, where $\oplus$ denotes addition modulo 2. For our specific case, with the second register initially in state $\ket{-}$, the transformation is:
@@ -940,6 +945,9 @@ $$
 &= \frac{1}{\sqrt{2^{n}}} \sum_{x \in \{0,1\}^n} (-1)^{f(x)}\ket{x}\ket{-}
 \end{align*}
 $$
+
+### 4. Applying the Hadamard Transform
+
 
 After this step, we apply the Hadamard transform to the first $n$ qubits:
 
@@ -992,9 +1000,6 @@ H^{\otimes 3} \ket{101} &= \left( H\ket{1} \otimes H\ket{0} \otimes H\ket{1} \ri
 \end{align*}
 $$
 
-
-### 4. Applying the Hadamard Transform
-
 After applying the Hadamard transform to the first $n$ qubits in the state $\ket{\psi_3}$, we get:
 
 $$
@@ -1019,3 +1024,45 @@ $$
 ### 5. Measurement and Conclusion
 
 Finally, we measure the first $n$ qubits. If $f(x)$ is constant, all terms in the sum for $\ket{\psi_4}$ add constructively for $z = 0^n$ and destructively for all other $z$, leading to the measurement of $0^n$. If $f(x)$ is balanced, there is complete destructive interference for $z = 0^n$, making it impossible to measure $0^n$. Thus, by observing whether or not we get $0^n$, we can determine if $f$ is constant or balanced, completing the Deutsch-Jozsa algorithm.
+
+# Bernstein-Vazirani Algorithm
+
+
+Let $f_s: \{0,1\}^n \to {0,1}$ a function with $n$ parameters $(s_1, \dots, s_n) \in \{0,1\}^n $ that yield the dot product of $x$ with $s$ that is:
+
+
+$$
+f(x) = s \cdot x
+$$
+
+$$
+\forall x \in \{0,1\}^n \quad f_s(x) = \sum_i s_i x_i = 
+\begin{bmatrix}
+s_1 \cdots s_n 
+\end{bmatrix} 
+\begin{bmatrix}
+x_1 \\ 
+\vdots \\ 
+x_n 
+\end{bmatrix} 
+$$
+
+
+The parameters $(s_1, \dots, s_n)$ are all unknown and we try to find them. With a classic quantumer, the only way is to compute the function $f_s$ multiple time this way:
+
+$$
+s_1 = f_s(1,0, \dots,0) 
+$$
+$$
+s_2 = f_s(0,1,0, \dots) 
+$$
+$$
+\vdots
+$$
+$$
+s_n = f_s(0,\dots,0,1) 
+$$
+
+Therefore, with a classic computer we need $n$ iterations
+
+With a very simple modifiction  of Deutsch-Jozsa algorithm, the Bernstein-Vazirani algorithm is able to output all parameters of s in one single iteration !
