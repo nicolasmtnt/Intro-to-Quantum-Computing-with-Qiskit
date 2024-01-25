@@ -642,7 +642,7 @@ Quantum parallelism refers to the ability of a quantum computer to evaluate a fu
 Consider the function $f$:
 
 $$
-f: \{0,1\} \rightarrow \{0,1\}
+f: \lbrace0,1\rbrace \rightarrow \lbrace0,1\rbrace
 $$
 
 The specific mapping of $f$ is unknown. It could either be:
@@ -722,7 +722,7 @@ Note that the phase oracle once again demonstrates the property of phase kickbac
 ![Deutsch's Algorithm](images/deutsch.png)
 
 
-Deutsch's Algorithm is a fundamental quantum algorithm that demonstrates the advantage of quantum computing over classical computing, even for a simple problem. It determines whether a given binary function $f: \{0, 1\} \to \{0, 1\}$ is constant or balanced.
+Deutsch's Algorithm is a fundamental quantum algorithm that demonstrates the advantage of quantum computing over classical computing, even for a simple problem. It determines whether a given binary function $f: \lbrace0, 1\rbrace \to \lbrace0, 1\rbrace$ is constant or balanced.
 
 Here's a step-by-step breakdown of Deutsch's Algorithm:
 
@@ -775,10 +775,10 @@ Deutsch's Algorithm illustrates an essential quantum computing concept: the abil
 
 # Deutsch-Jozsa Algorithm
 
-Now instead of considering $f : \{0,1\} \to \{0,1\}$ with two possibilities, let's consider a more generalized function:
+Now instead of considering $f : \lbrace0,1\rbrace \to \lbrace0,1\rbrace$ with two possibilities, let's consider a more generalized function:
 
 $$
-f : \{0,1\}^n \to \{0,1\}
+f : \lbrace0,1\rbrace^n \to \lbrace0,1\rbrace
 $$
 
 There are therefore $2^n$ possible inputs. Again, we want to check if `f` is balanced (i.e., outputs `0` for exactly half of the inputs and `1` for the other half) or constant (i.e., outputs the same value for all inputs).
@@ -881,9 +881,10 @@ $$
 
 
 
+> $$
+> \ket{+}^{\otimes n} = \frac{1}{\sqrt{2^n}} \sum_{x \in \{0,1\}^n} \ket{x}
 >$$
->\ket{+}^{\otimes n} = \frac{1}{\sqrt{2^n}} \sum_{x \in \{0,1\}^n} \ket{x}
->$$
+> 
 > **Proof**
 >
 >1. **Base Case n=1**:
@@ -1028,7 +1029,7 @@ Finally, we measure the first $n$ qubits. If $f(x)$ is constant, all terms in th
 # Bernstein-Vazirani Algorithm
 
 
-Let $f_s: \{0,1\}^n \to {0,1}$ a function with $n$ parameters $(s_1, \dots, s_n) \in \{0,1\}^n $ that yield the dot product of $x$ with $s$ that is:
+Let $f_s: \lbrace0,1\rbrace^n \to {0,1}$ a function with $n$ parameters $(s_1, \dots, s_n) \in \lbrace 0,1\rbrace^n$ that yield the dot product of $x$ with $s$ that is:
 
 
 $$
